@@ -1,0 +1,11 @@
+# Default ignored files
+/shelf/
+/.idea/workspace.xml
+
+application.properties
+
+node_modules/
+.env
+package.json
+package-lock.json
+target/
