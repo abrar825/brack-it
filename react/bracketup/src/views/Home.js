@@ -16,12 +16,28 @@ import Example from "../components/PickSubmission";
 import Picks from "../components/PickSubmission";
 
 function Home() {
-  const options = ["Netherlands", "Draw", "Senegal"];
+  let players = [
+    {
+      name: "Abra",
+      points: 24,
+      rank: 1,
+    },
+    {
+      name: "Ringo",
+      points: 12,
+      rank: 2,
+    },
+    {
+      name: "Puka",
+      points: 11,
+      rank: 3,
+    },
+  ];
 
   return (
     <Box>
       <Header></Header>
-      <Leaderboard></Leaderboard>
+      <Leaderboard players={players}></Leaderboard>
     </Box>
   );
 }

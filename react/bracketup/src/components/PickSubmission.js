@@ -6,6 +6,9 @@ import {
   Select,
   VStack,
 } from "@chakra-ui/react";
+import { useState } from "react";
+
+function onSubmit() {}
 
 // 1. Create a component that consumes the `useRadio` hook
 function RadioCard(props) {
@@ -34,6 +37,8 @@ function RadioCard(props) {
         px={5}
         py={3}
         width={85}
+        onClick={() => props.onClick(props.value)}
+        value={props.value}
       >
         {props.children}
       </Box>
@@ -42,7 +47,7 @@ function RadioCard(props) {
 }
 
 // Step 2: Use the `useRadioGroup` hook to control a group of custom radios.
-export function Example({ options }) {
+export function Example({ options, onClick }) {
   // const options = ["react", "vue", "svelte"];
 
   const { getRootProps, getRadioProps } = useRadioGroup({
@@ -58,7 +63,7 @@ export function Example({ options }) {
       {options.map((value) => {
         const radio = getRadioProps({ value });
         return (
-          <RadioCard key={value} {...radio}>
+          <RadioCard {...radio} value={value} onClick={onClick}>
             {value}
           </RadioCard>
         );
@@ -75,17 +80,25 @@ export function Picks({ teams }) {
       choices.push(teams[i]);
       choices.push("Draw");
       choices.push(teams[j]);
-      picks.push(<Example options={choices}></Example>);
+      picks.push(
+        <Example options={choices} onClick={() => console.log()}></Example>
+      );
     }
   }
   return picks;
 }
 
-export function ElimPicks({ teams }) {
+export function GroupWinners({ teams, placeholder, onChange }) {
   return (
-    <Select bg="#B01041" color="white" width="50%">
+    <Select
+      bg="#B01041"
+      color="white"
+      width="50%"
+      placeholder={placeholder}
+      onChange={onChange}
+    >
       {teams.map((team, index) => (
-        <option key={index} value={team}>
+        <option key={index} value={team} style={{ color: "black" }}>
           {team}
         </option>
       ))}
@@ -95,14 +108,24 @@ export function ElimPicks({ teams }) {
 
 export function AllGroupPicks({ groups }) {
   return (
-    <HStack wrap="wrap">
-      {groups.map((group, index) => (
-        <VStack ml={3} align="left" mb={10}>
-          <Picks teams={group}></Picks>
-          <ElimPicks teams={group}></ElimPicks>
-          <ElimPicks teams={group}></ElimPicks>
+    <HStack justify="center" wrap="wrap" align="center" width="75%">
+      {Object.entries(groups).map(([groupName, countries]) => (
+        <VStack ml={3} justify="center" mb={10}>
+          <Picks groupName={groupName} teams={countries}></Picks>
+          <GroupWinners
+            teams={countries}
+            groupPos={`${groupName} + 1`}
+          ></GroupWinners>
+          <GroupWinners
+            teams={countries}
+            groupPos={`${groupName} + 2`}
+          ></GroupWinners>
         </VStack>
       ))}
     </HStack>
   );
+}
+
+export function ElimPicks() {
+  let [groupLeaders, setGroupLeader] = useState("");
 }
