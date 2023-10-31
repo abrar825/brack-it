@@ -8,7 +8,23 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 
-function onSubmit() {}
+import { Button, Icon } from "@chakra-ui/react";
+import { FaBolt } from "react-icons/fa";
+
+export function SubmitButton() {
+  return (
+    <Button
+      colorScheme="blue"
+      rightIcon={<Icon as={FaBolt} />}
+      _hover={{
+        bg: "blue.500",
+        transform: "scale(1.05)",
+      }}
+    >
+      Submit
+    </Button>
+  );
+}
 
 // 1. Create a component that consumes the `useRadio` hook
 function RadioCard(props) {

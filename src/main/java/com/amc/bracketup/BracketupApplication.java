@@ -37,53 +37,7 @@ public class BracketupApplication {
         String apiKey = dotenv.get("API_KEY");
 
 
-        try (CloseableHttpClient client = HttpClients.createDefault()) {
-            HttpGet httpGet = new HttpGet("https://v3.football.api-sports.io/standings?league=1&season=2022");
-            httpGet.setHeader("x-rapidapi-host", "v3.football.api-sports.io");
-            httpGet.setHeader("x-rapidapi-key", apiKey);
-
-            HttpResponse response = client.execute(httpGet);
-
-
-            ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-            ObjectWriter objectWriter = objectMapper.writerWithDefaultPrettyPrinter();
-
-            String jsonResponse = EntityUtils.toString(response.getEntity());
-            JsonNode jsonNode = objectMapper.readTree(jsonResponse);
-            ArrayNode responseNode = (ArrayNode) jsonNode.get("response");
-
-            String responseText;
-            JsonNode node = responseNode.get(0);
-            ArrayNode standingsNode = (ArrayNode) node.get("league").get("standings");
-
-            List<Team> teams = new ArrayList<Team>();
-
-            for (JsonNode groupNode : standingsNode) {
-//                System.out.println(groupNode.get(0).get("team").get("name"));
-                for (JsonNode teamNode : groupNode) {
-                    String teamString = teamNode.toString();
-                    Team team = objectMapper.readValue(teamString, Team.class);
-                    team.setName(teamNode.get("team").get("name").asText());
-                    team.setId(teamNode.get("team").get("id").asInt());
-                    teams.add(team);
-//                    System.out.println(objectMapper.writeValueAsString(team));
-                }
-
-            }
-
-            GroupStage groupStage = new GroupStage(teams);
-//            System.out.println(groupStage.getGroups());
-
-            String responseB = objectWriter.writeValueAsString(groupStage.getGroups());
-            System.out.println(responseB);
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        String connectionString = "mongodb+srv://abrar:dhaka444@atlascluster.zsmesm4.mongodb.net/?retryWrites=true&w=majority";
+        String connectionString = dotenv.get("CONN_STRING");
         ServerApi serverApi = ServerApi.builder()
                 .version(
                         ServerApiVersion.V1)
