@@ -1,6 +1,6 @@
 import { Input, Box, HStack, VStack } from "@chakra-ui/react";
 import Header from "../components/Header";
-import { Picks, ElimPicks, AllGroupPicks } from "../components/PickSubmission";
+import { SubmitButton } from "../components/PickSubmission";
 import { AllPicks } from "../components/AllPicks";
 
 function EnterContest() {
@@ -25,6 +25,7 @@ function EnterContest() {
           m={4}
         ></Input>
         <AllPicks groups={teams}></AllPicks>
+        <SubmitButton></SubmitButton>
       </VStack>
     </Box>
   );
