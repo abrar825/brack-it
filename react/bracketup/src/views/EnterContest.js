@@ -15,9 +15,9 @@ function EnterContest() {
     H: ["AUS", "GHA", "IRN", "PER"],
   };
   return (
-    <Box bgSize="100%">
+    <Box maxW="100%" bgSize="100%">
       <Header></Header>
-      <VStack display="flex" justifyContent="center">
+      <VStack display="flex" justifyContent="center" maxW="100%">
         <Input
           placeholder="Enter a Name!"
           size="sm"

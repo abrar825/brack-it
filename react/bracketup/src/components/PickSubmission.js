@@ -14,7 +14,7 @@ import { FaBolt } from "react-icons/fa";
 export function SubmitButton() {
   return (
     <Button
-      colorScheme="blue"
+      colorScheme="green"
       rightIcon={<Icon as={FaBolt} />}
       _hover={{
         bg: "blue.500",
@@ -43,9 +43,9 @@ function RadioCard(props) {
         borderRadius="md"
         boxShadow="md"
         _checked={{
-          bg: "green.300",
+          bg: "blue.300",
           color: "white",
-          borderColor: "green.300",
+          borderColor: "blue.300",
         }}
         _focus={{
           boxShadow: "outline",
