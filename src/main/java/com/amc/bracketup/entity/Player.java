@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
 import java.util.UUID;
 
 @Document(collection = "players")
@@ -21,7 +22,7 @@ public class Player {
     ObjectId id;
     String name;
     String email;
-    GroupStage groupPicks;
+    List<Match> picks;
     int points;
 
 }

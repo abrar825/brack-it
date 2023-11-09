@@ -11,9 +11,10 @@ import { useState } from "react";
 import { Button, Icon } from "@chakra-ui/react";
 import { FaBolt } from "react-icons/fa";
 
-export function SubmitButton() {
+export function SubmitButton(props) {
   return (
     <Button
+      {...props}
       colorScheme="green"
       rightIcon={<Icon as={FaBolt} />}
       _hover={{
@@ -88,7 +89,7 @@ export function Example({ options, onClick }) {
   );
 }
 
-export function Picks({ teams }) {
+export function Picks({ teams, onClick }) {
   let picks = [];
   for (let i = 0; i < teams.length; i++) {
     for (let j = i + 1; j < teams.length; j++) {
@@ -96,8 +97,14 @@ export function Picks({ teams }) {
       choices.push(teams[i]);
       choices.push("Draw");
       choices.push(teams[j]);
+      let id = `${teams[i]}v${teams[j]}`;
+
       picks.push(
-        <Example options={choices} onClick={() => console.log()}></Example>
+        <Example
+          options={choices}
+          onClick={(value) => onClick(value, `${teams[i]}v${teams[j]}`)}
+          id={`${teams[i]}v${teams[j]}`}
+        ></Example>
       );
     }
   }

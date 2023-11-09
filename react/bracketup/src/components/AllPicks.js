@@ -16,11 +16,17 @@ import {
   AllGroupPicks,
   Example,
   GroupWinners,
+  SubmitButton,
 } from "../components/PickSubmission";
 
 import "../App.css";
+import "../api/api.js";
 
 export class AllPicks extends Component {
+  /**
+   *
+   * @param {*} props
+   */
   constructor(props) {
     super(props);
 
@@ -71,6 +77,13 @@ export class AllPicks extends Component {
     };
   }
 
+  groupStagePicks = {};
+
+  /**
+   *
+   * @param {*} event
+   * @param {*} groupPos
+   */
   groupWinnerOnClick = (event, groupPos) => {
     let newState = { ...this.state };
     newState.groupWinners[groupPos] = event.target.value;
@@ -78,11 +91,27 @@ export class AllPicks extends Component {
     console.log(this.state);
   };
 
+  /**
+   *
+   * @param {string} value
+   * @param {string} level
+   * @param {string} key
+   */
   elimPicksOnClick = (value, level, key) => {
     let newState = { ...this.state };
-    newState[level][key] = value;
+
+    if (key == null) {
+      newState[level] = value;
+    } else {
+      newState[level][key] = value;
+    }
     this.setState(newState);
     console.log(this.state);
+  };
+
+  groupStagePickOnClick = (value, id) => {
+    this.groupStagePicks[id] = value;
+    console.log(this.groupStagePicks);
   };
 
   render() {
@@ -91,11 +120,15 @@ export class AllPicks extends Component {
       this.state;
 
     return (
-      <Box width="90%">
+      <Box width="90%" justifyContent="center">
         <HStack justify="center" wrap="wrap" alignItems="center">
           {Object.entries(groups).map(([groupName, countries]) => (
             <VStack ml={3} justify="center" mb={10}>
-              <Picks groupName={groupName} teams={countries}></Picks>
+              <Picks
+                groupName={groupName}
+                teams={countries}
+                onClick={(value, id) => this.groupStagePickOnClick(value, id)}
+              ></Picks>
               <GroupWinners
                 teams={countries}
                 groupPos={`${groupName}1`}
@@ -229,8 +262,10 @@ export class AllPicks extends Component {
               semiMatchups["A1vB2yC1vD2xE1vF2yG1vH2"],
               semiMatchups["B1vA2yD1vC2xF1vE2yH1vG2"],
             ]}
+            onClick={(value) => this.elimPicksOnClick(value, "champion", null)}
           ></Example>
         </HStack>
+        <SubmitButton ml={650} mb={5}></SubmitButton>
       </Box>
     );
   }

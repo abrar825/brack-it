@@ -25,7 +25,6 @@ function EnterContest() {
           m={4}
         ></Input>
         <AllPicks groups={teams}></AllPicks>
-        <SubmitButton></SubmitButton>
       </VStack>
     </Box>
   );
