@@ -7,7 +7,7 @@ const BASE_URL = "http://localhost:8080"; // Change the URL to match your backen
 export const insertUser = async (userData) => {
   try {
     const response = await api.post("/api/v1/players/insertPlayer", userData);
-    return response.data; // Return the response data from the API
+    return response; // Return the response data from the API
   } catch (error) {
     throw error; // Handle errors appropriately in your application
   }

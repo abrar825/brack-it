@@ -23,7 +23,7 @@ public class Player {
     ObjectId id;
     String name;
     String email;
-    HashMap<String, String> picks;
     int points;
+    Picks picks;
 
 }

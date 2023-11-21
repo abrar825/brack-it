@@ -8,6 +8,7 @@ import {
   Select,
   VStack,
   Flex,
+  useToast,
 } from "@chakra-ui/react";
 
 import {
@@ -118,13 +119,49 @@ export class AllPicks extends Component {
   };
 
   submitOnClick = () => {
+    let toast = useToast();
     let submission = {
       name: this.name,
-      picks: this.groupStagePicks,
+      picks: {
+        groupWinners: this.state.groupWinners,
+        RO16_Matchups: this.state.RO16_Matchups,
+        quarterMatchups: this.state.quarterMatchups,
+        semiMatchups: this.state.semiMatchups,
+        champion: this.state.champion,
+        groupStagePicks: this.groupStagePicks,
+      },
       email: "hey@yer.com",
       points: 3,
     };
-    insertUser(submission);
+
+    try {
+      let response = insertUser(submission);
+
+      if (response.ok) {
+        toast({
+          title: "Successfully submitted!",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+      } else {
+        toast({
+          title: "Submission failed.",
+          description: "Please try again later.",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Network error",
+        description: "Please check your connection.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
   };
 
   render() {
