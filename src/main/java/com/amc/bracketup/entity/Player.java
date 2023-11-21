@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,7 +23,7 @@ public class Player {
     ObjectId id;
     String name;
     String email;
-    List<Match> picks;
+    HashMap<String, String> picks;
     int points;
 
 }

@@ -21,6 +21,7 @@ import {
 
 import "../App.css";
 import "../api/api.js";
+import { insertUser } from "../api/api.js";
 
 export class AllPicks extends Component {
   /**
@@ -31,6 +32,8 @@ export class AllPicks extends Component {
     super(props);
 
     this.state = {
+      name: "Adara",
+
       groupWinners: {
         A1: "A1",
         A2: "A2",
@@ -112,6 +115,16 @@ export class AllPicks extends Component {
   groupStagePickOnClick = (value, id) => {
     this.groupStagePicks[id] = value;
     console.log(this.groupStagePicks);
+  };
+
+  submitOnClick = () => {
+    let submission = {
+      name: this.name,
+      picks: this.groupStagePicks,
+      email: "hey@yer.com",
+      points: 3,
+    };
+    insertUser(submission);
   };
 
   render() {
@@ -265,7 +278,11 @@ export class AllPicks extends Component {
             onClick={(value) => this.elimPicksOnClick(value, "champion", null)}
           ></Example>
         </HStack>
-        <SubmitButton ml={650} mb={5}></SubmitButton>
+        <SubmitButton
+          ml={650}
+          mb={5}
+          onClick={this.submitOnClick}
+        ></SubmitButton>
       </Box>
     );
   }

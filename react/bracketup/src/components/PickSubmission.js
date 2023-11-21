@@ -21,6 +21,7 @@ export function SubmitButton(props) {
         bg: "blue.500",
         transform: "scale(1.05)",
       }}
+      onClick={props.onClick}
     >
       Submit
     </Button>
