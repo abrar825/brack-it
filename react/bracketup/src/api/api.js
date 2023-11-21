@@ -1,5 +1,8 @@
 import api from "./axiosConfig.js";
 
+import { useToast, createStandaloneToast } from "@chakra-ui/react";
+const { ToastContainer, toast } = createStandaloneToast();
+
 // Define the base URL for your Java Spring API
 const BASE_URL = "http://localhost:8080"; // Change the URL to match your backend's URL
 
@@ -7,8 +10,31 @@ const BASE_URL = "http://localhost:8080"; // Change the URL to match your backen
 export const insertUser = async (userData) => {
   try {
     const response = await api.post("/api/v1/players/insertPlayer", userData);
-    return response; // Return the response data from the API
+    if (response.status == 201) {
+      toast({
+        title: "Successfully submitted!",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+    } else {
+      toast({
+        title: "Submission failed.",
+        description: "Please try again later.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+    console.log(response);
   } catch (error) {
-    throw error; // Handle errors appropriately in your application
+    toast({
+      title: "Network error",
+      description: "Please check your connection.",
+      status: "error",
+      duration: 3000,
+      isClosable: true,
+    });
+    console.log(error);
   }
 };
