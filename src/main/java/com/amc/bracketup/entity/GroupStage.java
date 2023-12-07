@@ -15,16 +15,22 @@ public class GroupStage {
     int numGroups;
     int numTeams;
     HashMap<String, Group> groups = new HashMap<String, Group>();
+    String[][] teams = new String[numGroups][numTeams];
 
-    public GroupStage(List<Team> teams) {
-        for (Team team : teams) {
-            if (groups.containsKey(team.getGroup())) {
-                groups.get(team.getGroup()).addTeam(team);
-            } else {
-                Group group = new Group(team.getGroup());
-                group.addTeam(team);
-                groups.put(team.getGroup(), group);
-            }
+    public GroupStage(int numGroups, int numTeams, String [][] teams) {
+        this.numGroups = numGroups;
+        this.numTeams = numTeams;
+        this.teams = teams;
+
+    }
+
+    private void initializeGroups() {
+        char groupName = 'A';
+
+        for (String[] group : teams) {
+            String groupNameStr = "Group " + groupName;
+            Group newGroup = new Group(groupNameStr, group);
+            this.addGroup(newGroup);
         }
     }
 

@@ -1,8 +1,12 @@
-package com.amc.bracketup.entity;
+package com.amc.bracketup.entity.tournaments;
+
+import com.amc.bracketup.entity.GroupStage;
+import com.amc.bracketup.entity.Tournament;
+import com.amc.bracketup.entity.TournamentFormat;
 
 import java.util.List;
 
-public class WorldCup32Team extends Tournament implements TournamentFormat  {
+public class WorldCup32Team extends Tournament implements TournamentFormat {
 
     private static final int numTeams = 32;
     private static final int numGroups = 8;
