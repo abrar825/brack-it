@@ -4,7 +4,6 @@ The World Cup Bracket App is a web-based application designed for football enthu
 
 ## Features
 
-- **User Authentication**: Secure sign-up and login functionality.
 - **Interactive Bracket**: Users can interactively make their picks for each match.
 - **Leaderboard**: See how you stack up against friends and other users.
 - **Match Notifications**: Get notified of upcoming matches and results.
@@ -13,14 +12,10 @@ The World Cup Bracket App is a web-based application designed for football enthu
 ## Technology Stack
 
 - **Frontend**: ReactJS, Chakra UI
-- **Backend**: (Specify your backend technology)
-- **Database**: (Specify your database technology)
-- **Deployment**: (Specify your deployment platform)
+- **Backend**: Java Spring Boot
+- **Database**: Mongo DB
+- **Deployment**: N/A (yet)
 
 ## Getting Started
 
-### Prerequisites
-
-- Node.js
-- npm or Yarn
-- Git# brack-it
+TO BE ADDED
