@@ -1,3 +1,5 @@
+import React, { useState, useEffect } from "react";
+
 import {
   Box,
   Flex,
@@ -12,27 +14,23 @@ import {
 
 import Header from "../components/Header.js";
 import Leaderboard from "../components/Leaderboard";
-import Example from "../components/PickSubmission";
-import Picks from "../components/PickSubmission";
+import { getPlayers } from "../api/api.js";
 
 function Home() {
-  let players = [
-    {
-      name: "Abra",
-      points: 24,
-      rank: 1,
-    },
-    {
-      name: "Ringo",
-      points: 12,
-      rank: 2,
-    },
-    {
-      name: "Puka",
-      points: 11,
-      rank: 3,
-    },
-  ];
+  const [players, setPlayers] = useState([]);
+
+  useEffect(() => {
+    async function fetchPlayers() {
+      try {
+        const playersData = await getPlayers();
+        setPlayers(playersData);
+      } catch (error) {
+        console.error("Error fetching players:", error);
+      }
+    }
+
+    fetchPlayers();
+  }, []);
 
   return (
     <Box>

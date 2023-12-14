@@ -38,3 +38,10 @@ export const insertUser = async (userData) => {
     console.log(error);
   }
 };
+
+export const getPlayers = async () => {
+  const response = await api.get("/api/v1/players/getAllPlayers");
+  let players = response.data;
+  console.log(players);
+  return players;
+};

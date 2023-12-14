@@ -1,5 +1,6 @@
 package com.amc.bracketup.entity;
 
+import com.amc.bracketup.entity.tournamentKeys.TournamentKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.OneToMany;
@@ -18,9 +19,8 @@ public class Tournament {
     private LocalDate startDate;
     private LocalDate endDate;
 
-    @OneToMany(mappedBy = "tournament")
-    private List<String> matches = new ArrayList<>();
-    private List<String> teams;
+    private List<Player> players;
+    private TournamentKey tournamentKey;
 
     public Tournament(String name) {
         this.name = name;

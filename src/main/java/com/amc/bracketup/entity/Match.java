@@ -11,12 +11,14 @@ public class Match {
     String team1;
     String team2;
     String pick;
+    String matchCode;
+
 
     public Match(String team1, String team2) {
         this.team1 = team1;
         this.team2 = team2;
+        this.matchCode = team1 + "v" + team2;
     }
-
 
 
 }

@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/v1/players")
 public class PlayerController {
@@ -20,9 +22,10 @@ public class PlayerController {
         return new ResponseEntity<>(addedPlayer, HttpStatus.CREATED);
     }
 
-    @GetMapping("/get")
-    public String getPlayer() {
-        return "Player!";
+    @GetMapping("/getAllPlayers")
+    public List<Player> getAllPlayers() {
+        playerService.calculateRanks();
+        return playerService.getAllPlayers();
     }
 
 

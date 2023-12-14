@@ -1,7 +1,6 @@
 package com.amc.bracketup.entity.tournamentKeys;
 
-public class UEFAEuro2022Key implements TournamentKey {
-
+public class UEFAEuroKey implements TournamentKey {
 
 
     String champion;

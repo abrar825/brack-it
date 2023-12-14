@@ -24,6 +24,7 @@ public class Player {
     String name;
     String email;
     int points;
+    int rank;
     Picks picks;
 
 }

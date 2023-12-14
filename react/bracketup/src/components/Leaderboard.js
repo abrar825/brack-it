@@ -20,20 +20,22 @@ import {
   TableCaption,
   TableContainer,
 } from "@chakra-ui/react";
+import { getPlayers } from "../api/api";
+import "../index.css";
 
 function PlayerRows({ players }) {
   return players.map((player, index) => (
     <Tr>
-      <Td>{player.rank}</Td>
-      <Td>{player.name}</Td>
-      <Td>{player.points}</Td>
+      <Td className="font-link">{player.rank}</Td>
+      <Td className="font-link">{player.name}</Td>
+      <Td className="font-link">{player.points}</Td>
     </Tr>
   ));
 }
 
 export default function Leaderboard({ players }) {
   return (
-    <TableContainer m="20" ml="200" mr="200" bg="#B01041">
+    <TableContainer m="20" ml="200" mr="200" bg="#FDF1CB">
       <Table variant="striped" colorScheme="red">
         <Thead bg="blackAlpha.900">
           <Tr>

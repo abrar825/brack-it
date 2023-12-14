@@ -1,7 +1,7 @@
 package com.amc.bracketup.entity.tournamentKeys;
 
-public interface TournamentKey {
 
+public interface TournamentKey {
 
 
 }

@@ -5,7 +5,6 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
-import java.util.List;
 
 @Slf4j
 @Getter
@@ -15,9 +14,10 @@ public class GroupStage {
     int numGroups;
     int numTeams;
     HashMap<String, Group> groups = new HashMap<String, Group>();
-    String[][] teams = new String[numGroups][numTeams];
+    String[][] teams; // = new String[numGroups][numTeams];
 
-    public GroupStage(int numGroups, int numTeams, String [][] teams) {
+
+    public GroupStage(int numGroups, int numTeams, String[][] teams) {
         this.numGroups = numGroups;
         this.numTeams = numTeams;
         this.teams = teams;
@@ -29,7 +29,7 @@ public class GroupStage {
 
         for (String[] group : teams) {
             String groupNameStr = "Group " + groupName;
-            Group newGroup = new Group(groupNameStr, group);
+            Group newGroup = new Group(groupNameStr, group.length, group);
             this.addGroup(newGroup);
         }
     }

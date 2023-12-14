@@ -2,6 +2,7 @@ package com.amc.bracketup;
 
 import com.amc.bracketup.entity.GroupStage;
 import com.amc.bracketup.entity.Team;
+import com.amc.bracketup.entity.Tournament;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -38,7 +39,10 @@ public class BracketupApplication {
 
 
         String connectionString = dotenv.get("CONN_STRING");
-        
+
+        Tournament UEFAEuro2024 = new Tournament("UEFA Euro 2024");
+
+
     }
 
 

@@ -9,11 +9,12 @@ import java.util.Map;
 @Setter
 public class Picks {
 
+    GroupStage groupStage;
+    Map<String, String> groupStagePicks;
     Map<String, String> groupWinners;
     Map<String, String> RO16_Matchups;
     Map<String, String> quarterMatchups;
     Map<String, String> semiMatchups;
-    Map<String, String> groupStagePicks;
 
     String champion;
 }
