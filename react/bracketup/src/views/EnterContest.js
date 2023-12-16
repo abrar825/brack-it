@@ -18,12 +18,6 @@ function EnterContest() {
     <Box maxW="100%" bgSize="100%">
       <Header></Header>
       <VStack display="flex" justifyContent="center" maxW="100%">
-        <Input
-          placeholder="Enter a Name!"
-          size="sm"
-          width="200px"
-          m={4}
-        ></Input>
         <AllPicks groups={teams}></AllPicks>
       </VStack>
     </Box>

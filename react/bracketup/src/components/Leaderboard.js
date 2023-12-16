@@ -24,11 +24,15 @@ import { getPlayers } from "../api/api";
 import "../index.css";
 
 function PlayerRows({ players }) {
+  players.sort((a, b) => a.rank - b.rank);
+
   return players.map((player, index) => (
     <Tr>
-      <Td className="font-link">{player.rank}</Td>
-      <Td className="font-link">{player.name}</Td>
-      <Td className="font-link">{player.points}</Td>
+      <Td className="rank">{player.rank}</Td>
+      <Td px={10} className="font-link">
+        {player.name}
+      </Td>
+      <Td className="rank">{player.points}</Td>
     </Tr>
   ));
 }
@@ -40,7 +44,9 @@ export default function Leaderboard({ players }) {
         <Thead bg="blackAlpha.900">
           <Tr>
             <Th textColor="white">Rank</Th>
-            <Th textColor="white">Player</Th>
+            <Th px={10} textColor="white">
+              Player
+            </Th>
             <Th textColor="white">Points</Th>
           </Tr>
         </Thead>
