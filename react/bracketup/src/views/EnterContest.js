@@ -5,15 +5,25 @@ import { AllPicks } from "../components/AllPicks";
 
 function EnterContest() {
   const teams = {
-    A: ["ARG", "BRA", "CRO", "DEN"],
-    B: ["ENG", "FRA", "GER", "HUN"],
-    C: ["ITA", "JPN", "KOR", "MEX"],
-    D: ["NED", "POR", "RUS", "ESP"],
-    E: ["SWE", "SUI", "URU", "USA"],
-    F: ["BEL", "CHI", "COL", "POL"],
-    G: ["CRC", "EGY", "ISL", "NGA"],
-    H: ["AUS", "GHA", "IRN", "PER"],
+    A: ["QAT", "ECU", "SEN", "NED"],
+    B: ["ENG", "IRN", "USA", "WAL"],
+    C: ["ARG", "KSA", "MEX", "POL"],
+    D: ["FRA", "AUS", "DEN", "TUN"],
+    E: ["ESP", "CRC", "GER", "JPN"],
+    F: ["BEL", "CAN", "MAR", "CRO"],
+    G: ["BRA", "SRB", "SUI", "CMR"],
+    H: ["POR", "GHA", "URU", "KOR"],
   };
+  const worldCup2022Groups = [
+    // Group A
+    // Group B
+    // Group C
+    // Group D
+    // Group E
+    // Group F
+    // Group G
+    // Group H
+  ];
   return (
     <Box maxW="100%" bgSize="100%">
       <Header></Header>
