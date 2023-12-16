@@ -11,6 +11,7 @@ import {
   toast,
   Input,
 } from "@chakra-ui/react";
+import { useToast, createStandaloneToast } from "@chakra-ui/react";
 
 import {
   Picks,
@@ -24,6 +25,7 @@ import {
 import "../App.css";
 import "../api/api.js";
 import { insertUser } from "../api/api.js";
+import { useNavigate } from "react-router-dom";
 
 export class AllPicks extends Component {
   /**
@@ -119,7 +121,40 @@ export class AllPicks extends Component {
     console.log(this.groupStagePicks);
   };
 
+  validateSubmission = () => {
+    let {
+      groupStagePicks,
+      groupWinners,
+      RO16_Matchups,
+      quarterMatchups,
+      semiMatchups,
+      champion,
+    } = this.state;
+
+    if (Object.keys(groupStagePicks).length < 48) {
+      return { valid: false };
+    }
+
+    for (let team in Object.values(RO16_Matchups)) {
+      if (!team) return { valid: false };
+    }
+
+    for (let team in Object.values(quarterMatchups)) {
+      if (!team) return { valid: false };
+    }
+
+    for (let team in Object.values(semiMatchups)) {
+      if (!team) return { valid: false };
+    }
+
+    if (!champion) return { valid: false };
+
+    return { valid: true };
+  };
+
   submitOnClick = async () => {
+    const { ToastContainer, toast } = createStandaloneToast();
+
     let submission = {
       name: this.state.name,
       picks: {
@@ -134,7 +169,36 @@ export class AllPicks extends Component {
       points: 0,
     };
 
-    insertUser(submission);
+    try {
+      const response = insertUser(submission);
+      if (response.status == 201) {
+        toast({
+          title: "Successfully submitted!",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+        this.props.navigate("/");
+      } else {
+        toast({
+          title: "Submission failed.",
+          description: "Please try again later.",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+      }
+      console.log(response);
+    } catch (error) {
+      toast({
+        title: "Network error",
+        description: "Please check your connection.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+      console.log(error);
+    }
   };
 
   render() {

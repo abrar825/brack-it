@@ -2,6 +2,7 @@ import { Input, Box, HStack, VStack } from "@chakra-ui/react";
 import Header from "../components/Header";
 import { SubmitButton } from "../components/PickSubmission";
 import { AllPicks } from "../components/AllPicks";
+import { useNavigate } from "react-router-dom";
 
 function EnterContest() {
   const teams = {
@@ -14,21 +15,17 @@ function EnterContest() {
     G: ["BRA", "SRB", "SUI", "CMR"],
     H: ["POR", "GHA", "URU", "KOR"],
   };
-  const worldCup2022Groups = [
-    // Group A
-    // Group B
-    // Group C
-    // Group D
-    // Group E
-    // Group F
-    // Group G
-    // Group H
-  ];
+
+  const AllPicksWrapper = (props) => {
+    const navigate = useNavigate();
+
+    return <AllPicks navigate={navigate} {...props}></AllPicks>;
+  };
   return (
     <Box maxW="100%" bgSize="100%">
       <Header></Header>
       <VStack display="flex" justifyContent="center" maxW="100%">
-        <AllPicks groups={teams}></AllPicks>
+        <AllPicksWrapper groups={teams}></AllPicksWrapper>
       </VStack>
     </Box>
   );
