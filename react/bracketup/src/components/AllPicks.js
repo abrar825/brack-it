@@ -9,6 +9,7 @@ import {
   VStack,
   Flex,
   toast,
+  Input,
 } from "@chakra-ui/react";
 
 import {
@@ -33,7 +34,7 @@ export class AllPicks extends Component {
     super(props);
 
     this.state = {
-      name: "Adara",
+      name: "",
 
       groupWinners: {
         A1: "A1",
@@ -120,17 +121,17 @@ export class AllPicks extends Component {
 
   submitOnClick = async () => {
     let submission = {
-      name: "Joey",
+      name: this.state.name,
       picks: {
+        groupStagePicks: this.groupStagePicks,
         groupWinners: this.state.groupWinners,
         RO16_Matchups: this.state.RO16_Matchups,
         quarterMatchups: this.state.quarterMatchups,
         semiMatchups: this.state.semiMatchups,
         champion: this.state.champion,
-        groupStagePicks: this.groupStagePicks,
       },
       email: "hey@yer.com",
-      points: 3,
+      points: 0,
     };
 
     insertUser(submission);
@@ -143,155 +144,177 @@ export class AllPicks extends Component {
 
     return (
       <Box width="90%" justifyContent="center">
-        <HStack justify="center" wrap="wrap" alignItems="center">
-          {Object.entries(groups).map(([groupName, countries]) => (
-            <VStack ml={3} justify="center" mb={10}>
-              <Picks
-                groupName={groupName}
-                teams={countries}
-                onClick={(value, id) => this.groupStagePickOnClick(value, id)}
-              ></Picks>
-              <GroupWinners
-                teams={countries}
-                groupPos={`${groupName}1`}
-                placeholder="Winner"
-                onChange={(event) =>
-                  this.groupWinnerOnClick(event, `${groupName}1`)
-                }
-              ></GroupWinners>
-              <GroupWinners
-                teams={countries}
-                groupPos={`${groupName}2`}
-                placeholder="Runner Up"
-                onChange={(event) =>
-                  this.groupWinnerOnClick(event, `${groupName}2`)
-                }
-              ></GroupWinners>
+        <VStack>
+          <Input
+            placeholder="Enter a Name!"
+            size="sm"
+            width="200px"
+            mt={4}
+            onChange={(event) => {
+              this.setState({ name: event.target.value });
+            }}
+          ></Input>
+          <Input
+            placeholder="Enter your Email."
+            size="sm"
+            width="200px"
+            m={2}
+            onChange={(event) => {
+              this.setState({ name: event.target.value });
+            }}
+          ></Input>
+          <HStack justify="center" wrap="wrap" alignItems="center">
+            {Object.entries(groups).map(([groupName, countries]) => (
+              <VStack ml={3} justify="center" mb={10}>
+                <Picks
+                  groupName={groupName}
+                  teams={countries}
+                  onClick={(value, id) => this.groupStagePickOnClick(value, id)}
+                ></Picks>
+                <GroupWinners
+                  teams={countries}
+                  groupPos={`${groupName}1`}
+                  placeholder="Winner"
+                  onChange={(event) =>
+                    this.groupWinnerOnClick(event, `${groupName}1`)
+                  }
+                ></GroupWinners>
+                <GroupWinners
+                  teams={countries}
+                  groupPos={`${groupName}2`}
+                  placeholder="Runner Up"
+                  onChange={(event) =>
+                    this.groupWinnerOnClick(event, `${groupName}2`)
+                  }
+                ></GroupWinners>
+              </VStack>
+            ))}
+          </HStack>
+
+          <HStack>
+            <VStack justifyContent="space-between" mx="auto">
+              <Flex
+                class="leftBracket"
+                justifyContent="flex"
+                flexDirection="row"
+                alignItems="center"
+              >
+                <VStack className="elimStack">
+                  {Object.keys(RO16_Matchups)
+                    .slice(0, 4)
+                    .map((key) => (
+                      <Example
+                        options={[
+                          groupWinners[key.split("v")[0]],
+                          groupWinners[key.split("v")[1]],
+                        ]}
+                        onClick={(value) =>
+                          this.elimPicksOnClick(value, "RO16_Matchups", key)
+                        }
+                      ></Example>
+                    ))}
+                </VStack>
+                <VStack className="elimStack">
+                  {Object.keys(quarterMatchups)
+                    .slice(0, 2)
+                    .map((key) => (
+                      <Example
+                        options={[
+                          RO16_Matchups[key.split("y")[0]],
+                          RO16_Matchups[key.split("y")[1]],
+                        ]}
+                        onClick={(value) =>
+                          this.elimPicksOnClick(value, "quarterMatchups", key)
+                        }
+                      ></Example>
+                    ))}
+                </VStack>
+                <VStack className="elimStack">
+                  {Object.keys(semiMatchups)
+                    .slice(0, 1)
+                    .map((key) => (
+                      <Example
+                        options={[
+                          quarterMatchups[key.split("x")[0]],
+                          quarterMatchups[key.split("x")[1]],
+                        ]}
+                        onClick={(value) =>
+                          this.elimPicksOnClick(value, "semiMatchups", key)
+                        }
+                      ></Example>
+                    ))}
+                </VStack>
+              </Flex>
+
+              <Flex
+                class="rightBracket"
+                justifyContent="flex"
+                flexDirection="row"
+                alignItems="center"
+              >
+                <VStack className="elimStack">
+                  {Object.keys(RO16_Matchups)
+                    .slice(4, 8)
+                    .map((key) => (
+                      <Example
+                        options={[
+                          groupWinners[key.split("v")[0]],
+                          groupWinners[key.split("v")[1]],
+                        ]}
+                        onClick={(value) =>
+                          this.elimPicksOnClick(value, "RO16_Matchups", key)
+                        }
+                      ></Example>
+                    ))}
+                </VStack>
+                <VStack className="elimStack">
+                  {Object.keys(quarterMatchups)
+                    .slice(2, 4)
+                    .map((key) => (
+                      <Example
+                        options={[
+                          RO16_Matchups[key.split("y")[0]],
+                          RO16_Matchups[key.split("y")[1]],
+                        ]}
+                        onClick={(value) =>
+                          this.elimPicksOnClick(value, "quarterMatchups", key)
+                        }
+                      ></Example>
+                    ))}
+                </VStack>
+                <VStack className="elimStack">
+                  {Object.keys(semiMatchups)
+                    .slice(1, 2)
+                    .map((key) => (
+                      <Example
+                        options={[
+                          quarterMatchups[key.split("x")[0]],
+                          quarterMatchups[key.split("x")[1]],
+                        ]}
+                        onClick={(value) =>
+                          this.elimPicksOnClick(value, "semiMatchups", key)
+                        }
+                      ></Example>
+                    ))}
+                </VStack>
+              </Flex>
             </VStack>
-          ))}
-        </HStack>
-
-        <HStack>
-          <VStack justifyContent="space-between" mx="auto">
-            <Flex
-              class="leftBracket"
-              justifyContent="flex"
-              flexDirection="row"
-              alignItems="center"
-            >
-              <VStack className="elimStack">
-                {Object.keys(RO16_Matchups)
-                  .slice(0, 4)
-                  .map((key) => (
-                    <Example
-                      options={[
-                        groupWinners[key.split("v")[0]],
-                        groupWinners[key.split("v")[1]],
-                      ]}
-                      onClick={(value) =>
-                        this.elimPicksOnClick(value, "RO16_Matchups", key)
-                      }
-                    ></Example>
-                  ))}
-              </VStack>
-              <VStack className="elimStack">
-                {Object.keys(quarterMatchups)
-                  .slice(0, 2)
-                  .map((key) => (
-                    <Example
-                      options={[
-                        RO16_Matchups[key.split("y")[0]],
-                        RO16_Matchups[key.split("y")[1]],
-                      ]}
-                      onClick={(value) =>
-                        this.elimPicksOnClick(value, "quarterMatchups", key)
-                      }
-                    ></Example>
-                  ))}
-              </VStack>
-              <VStack className="elimStack">
-                {Object.keys(semiMatchups)
-                  .slice(0, 1)
-                  .map((key) => (
-                    <Example
-                      options={[
-                        quarterMatchups[key.split("x")[0]],
-                        quarterMatchups[key.split("x")[1]],
-                      ]}
-                      onClick={(value) =>
-                        this.elimPicksOnClick(value, "semiMatchups", key)
-                      }
-                    ></Example>
-                  ))}
-              </VStack>
-            </Flex>
-
-            <Flex
-              class="rightBracket"
-              justifyContent="flex"
-              flexDirection="row"
-              alignItems="center"
-            >
-              <VStack className="elimStack">
-                {Object.keys(RO16_Matchups)
-                  .slice(4, 8)
-                  .map((key) => (
-                    <Example
-                      options={[
-                        groupWinners[key.split("v")[0]],
-                        groupWinners[key.split("v")[1]],
-                      ]}
-                      onClick={(value) =>
-                        this.elimPicksOnClick(value, "RO16_Matchups", key)
-                      }
-                    ></Example>
-                  ))}
-              </VStack>
-              <VStack className="elimStack">
-                {Object.keys(quarterMatchups)
-                  .slice(2, 4)
-                  .map((key) => (
-                    <Example
-                      options={[
-                        RO16_Matchups[key.split("y")[0]],
-                        RO16_Matchups[key.split("y")[1]],
-                      ]}
-                      onClick={(value) =>
-                        this.elimPicksOnClick(value, "quarterMatchups", key)
-                      }
-                    ></Example>
-                  ))}
-              </VStack>
-              <VStack className="elimStack">
-                {Object.keys(semiMatchups)
-                  .slice(1, 2)
-                  .map((key) => (
-                    <Example
-                      options={[
-                        quarterMatchups[key.split("x")[0]],
-                        quarterMatchups[key.split("x")[1]],
-                      ]}
-                      onClick={(value) =>
-                        this.elimPicksOnClick(value, "semiMatchups", key)
-                      }
-                    ></Example>
-                  ))}
-              </VStack>
-            </Flex>
-          </VStack>
-          <Example
-            options={[
-              semiMatchups["A1vB2yC1vD2xE1vF2yG1vH2"],
-              semiMatchups["B1vA2yD1vC2xF1vE2yH1vG2"],
-            ]}
-            onClick={(value) => this.elimPicksOnClick(value, "champion", null)}
-          ></Example>
-        </HStack>
-        <SubmitButton
-          ml={650}
-          mb={5}
-          onClick={this.submitOnClick}
-        ></SubmitButton>
+            <Example
+              options={[
+                semiMatchups["A1vB2yC1vD2xE1vF2yG1vH2"],
+                semiMatchups["B1vA2yD1vC2xF1vE2yH1vG2"],
+              ]}
+              onClick={(value) =>
+                this.elimPicksOnClick(value, "champion", null)
+              }
+            ></Example>
+          </HStack>
+          <SubmitButton
+            ml={650}
+            mb={5}
+            onClick={this.submitOnClick}
+          ></SubmitButton>
+        </VStack>
       </Box>
     );
   }
