@@ -37,6 +37,7 @@ export class AllPicks extends Component {
 
     this.state = {
       name: "",
+      email: "",
 
       groupWinners: {
         A1: "A1",
@@ -95,7 +96,6 @@ export class AllPicks extends Component {
     let newState = { ...this.state };
     newState.groupWinners[groupPos] = event.target.value;
     this.setState(newState);
-    console.log(this.state);
   };
 
   /**
@@ -113,12 +113,10 @@ export class AllPicks extends Component {
       newState[level][key] = value;
     }
     this.setState(newState);
-    console.log(this.state);
   };
 
   groupStagePickOnClick = (value, id) => {
     this.groupStagePicks[id] = value;
-    console.log(this.groupStagePicks);
   };
 
   validateSubmission = () => {
@@ -131,23 +129,26 @@ export class AllPicks extends Component {
       champion,
     } = this.state;
 
+    if (groupStagePicks == null)
+      return { valid: false, error: "Group Stage null" };
+
     if (Object.keys(groupStagePicks).length < 48) {
-      return { valid: false };
+      return { valid: false, error: "Not enough Group Stage Picks" };
     }
 
     for (let team in Object.values(RO16_Matchups)) {
-      if (!team) return { valid: false };
+      if (!team) return { valid: false, error: "RO16 Incomplete" };
     }
 
     for (let team in Object.values(quarterMatchups)) {
-      if (!team) return { valid: false };
+      if (!team) return { valid: false, error: "Quarters incomplete" };
     }
 
     for (let team in Object.values(semiMatchups)) {
-      if (!team) return { valid: false };
+      if (!team) return { valid: false, error: "Semis incomplete" };
     }
 
-    if (!champion) return { valid: false };
+    if (!champion) return { valid: false, error: "No champion selected" };
 
     return { valid: true };
   };
@@ -165,9 +166,23 @@ export class AllPicks extends Component {
         semiMatchups: this.state.semiMatchups,
         champion: this.state.champion,
       },
-      email: "hey@yer.com",
+      email: this.state.email,
       points: 0,
     };
+
+    console.log(submission);
+    let validate = this.validateSubmission();
+    if (!validate.valid) {
+      toast({
+        title: "Submission failed.",
+        description: "You're missing some submissions!",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+      console.log(validate.error);
+      return;
+    }
 
     try {
       const response = insertUser(submission);
@@ -224,7 +239,7 @@ export class AllPicks extends Component {
             width="200px"
             m={2}
             onChange={(event) => {
-              this.setState({ name: event.target.value });
+              this.setState({ email: event.target.value });
             }}
           ></Input>
           <HStack justify="center" wrap="wrap" alignItems="center">
